@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Database, Building2, Mail, MapPin } from "lucide-react";
+import { Database, Building2, Mail, MapPin, Home, Globe, LogIn } from "lucide-react";
 
 export function Footer() {
+  const Version = "1.0.1";
   return (
     <footer className="relative mt-auto overflow-hidden">
       {/* Wave top */}
@@ -60,9 +61,11 @@ export function Footer() {
               </h3>
               <ul className="space-y-2.5">
                 {[
-                  { href: "/", label: "Beranda", icon: Database },
+                  { href: "/", label: "Beranda", icon: Home },
                   { href: "/dataset", label: "Dataset", icon: Database },
+                  { href: "https://geoportal.oganilirkab.go.id/main/", label: "Geoportal", icon: Globe, target: "_blank" },
                   { href: "/organisasi", label: "Instansi", icon: Building2 },
+                  { href: "https://satudata-dev.oganilirkab.go.id/", label: "Login", icon: LogIn, target: "_blank" },
                 ].map((link) => (
                   <li key={link.href}>
                     <Link
@@ -94,25 +97,52 @@ export function Footer() {
                   </a>
                 </li>
               </ul>
+
+              {/* Playstore & Appstore Button */}
+              <div className="flex items-center gap-2 mt-6">
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center"
+                >
+                  <img src="/playstore-button-2.png" alt="Google Play" className="w-full h-16" />
+                </a>
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center"
+                >
+                  <img src="/appstore-button-2.png" alt="App Store" className="w-full h-16" />
+                </a>
+              </div>
             </div>
           </div>
 
           {/* Bottom bar */}
           <div className="mt-10 pt-6 border-t border-purple-700/50 flex flex-col sm:flex-row items-center justify-between gap-3">
             <p className="text-sm text-purple-300">
-              &copy; {new Date().getFullYear()} Pemerintah Kabupaten Ogan Ilir
+              &copy; {`2024 - ` + new Date().getFullYear()} <Link href="/" className="font-bold text-slate-200 hover:text-white transition-all duration-300"> Pusat Data dan Informasi </Link> Diskominfo Kabupaten Ogan Ilir
             </p>
-            <p className="text-xs text-purple-400">
-              Didukung oleh{" "}
-              <a
-                href="https://ckan.org"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-purple-300 hover:text-white hover:underline transition-colors"
-              >
-                CKAN
-              </a>
-            </p>
+            <div className="flex items-center gap-4">
+              {/* version */}
+              <p className="text-xs text-purple-400">
+                App v{Version}
+              </p>
+
+              <p className="text-xs text-purple-400">
+                Didukung oleh{" "}
+                <a
+                  href="https://ckan.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-purple-300 hover:text-white hover:underline transition-colors"
+                >
+                  CKAN
+                </a>
+              </p>
+            </div>
           </div>
         </div>
       </div>

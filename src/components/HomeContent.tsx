@@ -150,7 +150,7 @@ export default function HomeContent({
                         },
                         {
                             icon: FileSpreadsheet,
-                            label: "Grup",
+                            label: "Topik",
                             value: stats.group_count,
                             color: "text-violet-600 bg-violet-50",
                             delay: 200,

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { LogIn, Menu, X } from "lucide-react";
 import { useState } from "react";
 
 const NAV_ITEMS = [
@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { href: "/dataset", label: "Dataset" },
   { href: "https://geoportal.oganilirkab.go.id/main/", label: "Geoportal", target: "_blank" },
   { href: "/organisasi", label: "Instansi" },
+  { href: "https://satudata-dev.oganilirkab.go.id/", label: "Login", target: "_blank", icon: LogIn },
 ];
 
 export function Header() {
@@ -50,11 +51,12 @@ export function Header() {
                   href={item.href}
                   target={item.target}
                   rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${active
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center ${active
                     ? "bg-purple-50 text-purple-700"
                     : "text-gray-600 hover:bg-purple-50/50 hover:text-purple-700"
                     }`}
                 >
+                  {item.icon && <item.icon className="w-3.5 h-3.5 mr-2" />}
                   {item.label}
                 </Link>
               );
