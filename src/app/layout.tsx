@@ -20,8 +20,28 @@ export const metadata: Metadata = {
   description:
     "Portal Satu Data Kabupaten Ogan Ilir. Temukan dan unduh dataset terbuka dari Pemerintah Kabupaten Ogan Ilir.",
   icons: {
-    icon: "/logo-satudata.webp",
-    apple: "/logo-satudata.webp",
+    icon: [
+      { url: "/logo-satudata.webp", type: "image/webp", sizes: "any" },
+    ],
+    apple: [
+      { url: "/logo-satudata.webp", sizes: "180x180" },
+    ],
+    shortcut: "/logo-satudata.webp",
+  },
+  openGraph: {
+    type: "website",
+    locale: "id_ID",
+    siteName: "Katalog Satu Data - Kabupaten Ogan Ilir",
+    title: "Katalog Satu Data - Kabupaten Ogan Ilir",
+    description: "Portal Satu Data Kabupaten Ogan Ilir. Temukan dan unduh dataset terbuka dari Pemerintah Kabupaten Ogan Ilir.",
+    images: [
+      {
+        url: "/logo-satudata.webp",
+        width: 512,
+        height: 512,
+        alt: "Katalog Satu Data - Kabupaten Ogan Ilir",
+      },
+    ],
   },
 };
 
