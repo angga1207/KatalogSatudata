@@ -23,7 +23,7 @@ import { DatasetCard } from "@/components/DatasetCard";
 import { ResourceMediaViewer, type MediaResource } from "./ResourceMediaViewer";
 import { isMediaFormat } from "@/lib/utils";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 // Keys displayed explicitly in sidebar — hide from generic extras list
 const HIDDEN_EXTRA_KEYS = [

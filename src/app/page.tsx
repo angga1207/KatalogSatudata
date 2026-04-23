@@ -1,7 +1,7 @@
 import { searchDatasets, getOrganizations, getSiteStats, getGroups, getPopularDatasets } from "@/lib/ckan";
 import HomeContent from "@/components/HomeContent";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const [stats, recentResult, organizations, groups, popularDatasets] = await Promise.all([

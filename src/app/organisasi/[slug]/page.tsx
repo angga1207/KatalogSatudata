@@ -8,7 +8,7 @@ import { ArrowLeft, Building2, Calendar, BarChart3 } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import { Suspense } from "react";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 const PER_PAGE = 12;
 

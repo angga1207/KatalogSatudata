@@ -15,7 +15,7 @@ import {
 import { ResourcePreview } from "../../ResourcePreview";
 import { ResourceChart } from "../../ResourceChart";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 interface PageProps {
   params: Promise<{ slug: string; resourceId: string }>;

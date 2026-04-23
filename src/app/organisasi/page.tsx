@@ -2,7 +2,7 @@ import { getOrganizations } from "@/lib/ckan";
 import Link from "next/link";
 import { Building2, BarChart3 } from "lucide-react";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export default async function OrganizationListPage() {
   const organizations = await getOrganizations();
