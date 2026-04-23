@@ -11,7 +11,6 @@ export function AOSProvider({ children }: { children: React.ReactNode }) {
       once: false,
       easing: "ease-out-cubic",
       offset: 50,
-      initClassName: false,
     });
   }, []);
 
