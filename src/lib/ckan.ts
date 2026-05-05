@@ -194,3 +194,24 @@ export async function getPopularDatasets(rows = 6): Promise<Dataset[]> {
   });
   return result.results;
 }
+
+export async function getTags(): Promise<(Tag & { package_count: number })[]> {
+  const tags = await ckanFetch<(Tag & { packages?: unknown[] })[]>("tag_list", {
+    all_fields: "true",
+    include_datasets: "false",
+  });
+  // Fetch package counts via vocabulary_id facet
+  const result = await searchDatasets({
+    rows: "0" as unknown as number,
+    facet: "true",
+    "facet.field": '["tags"]',
+  });
+  const tagCounts = result.search_facets?.tags?.items ?? [];
+  const countMap: Record<string, number> = {};
+  tagCounts.forEach((item) => {
+    countMap[item.name] = item.count;
+  });
+  return tags
+    .map((t) => ({ ...t, package_count: countMap[t.name] ?? 0 }))
+    .sort((a, b) => b.package_count - a.package_count);
+}

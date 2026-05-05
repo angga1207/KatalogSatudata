@@ -152,6 +152,7 @@ export default function HomeContent({
                             value: stats.dataset_count,
                             color: "text-purple-600 bg-purple-50",
                             delay: 0,
+                            href: "/dataset",
                         },
                         {
                             icon: Building2,
@@ -159,6 +160,7 @@ export default function HomeContent({
                             value: stats.organization_count,
                             color: "text-emerald-600 bg-emerald-50",
                             delay: 100,
+                            href: "/organisasi",
                         },
                         {
                             icon: FileSpreadsheet,
@@ -166,6 +168,7 @@ export default function HomeContent({
                             value: stats.group_count,
                             color: "text-violet-600 bg-violet-50",
                             delay: 200,
+                            href: "/topik",
                         },
                         {
                             icon: Globe,
@@ -173,25 +176,30 @@ export default function HomeContent({
                             value: stats.tag_count,
                             color: "text-amber-600 bg-amber-50",
                             delay: 300,
+                            href: "/tag",
                         },
                     ].map((stat) => (
                         <div
                             key={stat.label}
                             data-aos="zoom-in"
                             data-aos-delay={stat.delay}
-                            className="bg-white rounded-xl border border-purple-100 p-4 sm:p-5 flex items-center gap-3 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5"
                         >
-                            <div
-                                className={`w-10 h-10 rounded-lg flex items-center justify-center ${stat.color}`}
+                            <Link
+                                href={stat.href}
+                                className="flex items-center gap-3 bg-white rounded-xl border border-purple-100 p-4 sm:p-5 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:border-purple-300 group"
                             >
-                                <stat.icon className="w-5 h-5" />
-                            </div>
-                            <div>
-                                <p className="text-xl sm:text-2xl font-bold text-gray-900">
-                                    {stat.value.toLocaleString("id-ID")}
-                                </p>
-                                <p className="text-xs text-gray-500">{stat.label}</p>
-                            </div>
+                                <div
+                                    className={`w-10 h-10 rounded-lg flex items-center justify-center ${stat.color}`}
+                                >
+                                    <stat.icon className="w-5 h-5" />
+                                </div>
+                                <div>
+                                    <p className="text-xl sm:text-2xl font-bold text-gray-900 group-hover:text-purple-700 transition-colors">
+                                        {stat.value.toLocaleString("id-ID")}
+                                    </p>
+                                    <p className="text-xs text-gray-500">{stat.label}</p>
+                                </div>
+                            </Link>
                         </div>
                     ))}
                 </div>
@@ -234,44 +242,6 @@ export default function HomeContent({
                                 </div>
                             );
                         })}
-                    </div>
-                </section>
-            )}
-
-            {/* Links */}
-            {links.length > 0 && (
-                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                    <div data-aos="fade-up" className="text-center mb-10">
-                        <h2 className="text-2xl font-bold text-gray-900 flex items-center justify-center gap-2">
-                            <Link href="https://www.bappenas.go.id/" target="_blank" className="flex items-center gap-2 text-purple-600">
-                                <img src="/logo-bappenas.png" alt="Logo Bappenas" width={20} height={20} />
-                                Link Terkait
-                            </Link>
-                        </h2>
-                        <p className="text-sm text-gray-500 mt-1">
-                            Akses cepat ke portal dan layanan terkait Pemerintah Kabupaten Ogan Ilir
-                        </p>
-                    </div>
-
-                    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-6">
-                        {links.map((link, idx) => (
-                            <a
-                                key={idx}
-                                href={link.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                data-aos="fade-up"
-                                data-aos-delay={idx * 50}
-                                className="flex flex-col items-center gap-4 transition-all duration-300 hover:-translate-y-0.5 group"
-                            >
-                                <div className="w-30 h-30 bg-purple-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-purple-100 transition-colors">
-                                    <img src={`/${link.logo}`} alt={`${link.label} Logo`} className="w-full h-full object-contain p-2" />
-                                </div>
-                                <p className="font-medium text-center text-sm text-gray-800 group-hover:text-purple-700 transition-colors">
-                                    {link.label}
-                                </p>
-                            </a>
-                        ))}
                     </div>
                 </section>
             )}
@@ -373,6 +343,63 @@ export default function HomeContent({
                     </div>
                 </div>
             </section>
+
+            {/* Organizations */}
+            {topOrgs.length > 0 && (
+                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                    <div data-aos="fade-up">
+                        <div className="flex items-center justify-between mb-6">
+                            <div>
+                                <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                                    <Building2 className="w-5 h-5 text-purple-600" />
+                                    Instansi
+                                </h2>
+                                <p className="text-sm text-gray-500">
+                                    Instansi Perangkat Daerah yang menyediakan dataset
+                                </p>
+                            </div>
+                            <Link
+                                href="/organisasi"
+                                className="flex items-center gap-1 text-sm font-medium text-purple-600 hover:text-purple-700"
+                            >
+                                Lihat semua instansi <ArrowRight className="w-4 h-4" />
+                            </Link>
+                        </div>
+                    </div>
+
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                        {topOrgs.map((org, idx) => (
+                            <div key={org.id} data-aos="fade-up" data-aos-delay={idx * 50}>
+                                <Link
+                                    href={`/organisasi/${org.name}`}
+                                    className="flex items-center gap-4 bg-white rounded-xl border border-purple-100 p-4 hover:border-purple-300 hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 group"
+                                >
+                                    <div className="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center shrink-0">
+                                        {org.image_display_url ? (
+                                            <img
+                                                src={org.image_display_url}
+                                                alt={org.title}
+                                                className="w-10 h-10 object-contain rounded"
+                                            />
+                                        ) : (
+                                            <Building2 className="w-6 h-6 text-purple-400" />
+                                        )}
+                                    </div>
+                                    <div className="min-w-0">
+                                        <p className="font-medium text-gray-900 group-hover:text-purple-700 transition-colors truncate">
+                                            {org.title || org.display_name}
+                                        </p>
+                                        <p className="text-xs text-gray-500">
+                                            <BarChart3 className="w-3 h-3 inline mr-1" />
+                                            {org.package_count} dataset
+                                        </p>
+                                    </div>
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            )}
 
             {/* Data Geospasial */}
             {geoRecords.length > 0 && (
@@ -524,58 +551,39 @@ export default function HomeContent({
                 </section>
             )}
 
-            {/* Organizations */}
-            {topOrgs.length > 0 && (
-                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-                    <div data-aos="fade-up">
-                        <div className="flex items-center justify-between mb-6">
-                            <div>
-                                <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                                    <Building2 className="w-5 h-5 text-purple-600" />
-                                    Instansi
-                                </h2>
-                                <p className="text-sm text-gray-500">
-                                    Instansi Perangkat Daerah yang menyediakan dataset
-                                </p>
-                            </div>
-                            <Link
-                                href="/organisasi"
-                                className="flex items-center gap-1 text-sm font-medium text-purple-600 hover:text-purple-700"
-                            >
-                                Lihat semua instansi <ArrowRight className="w-4 h-4" />
+            {/* Links */}
+            {links.length > 0 && (
+                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                    <div data-aos="fade-up" className="text-center mb-10">
+                        <h2 className="text-2xl font-bold text-gray-900 flex items-center justify-center gap-2">
+                            <Link href="https://www.bappenas.go.id/" target="_blank" className="flex items-center gap-2 text-purple-600">
+                                <img src="/logo-bappenas.png" alt="Logo Bappenas" width={20} height={20} />
+                                Link Terkait
                             </Link>
-                        </div>
+                        </h2>
+                        <p className="text-sm text-gray-500 mt-1">
+                            Akses cepat ke portal dan layanan terkait Pemerintah Kabupaten Ogan Ilir
+                        </p>
                     </div>
 
-                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                        {topOrgs.map((org, idx) => (
-                            <div key={org.id} data-aos="fade-up" data-aos-delay={idx * 50}>
-                                <Link
-                                    href={`/organisasi/${org.name}`}
-                                    className="flex items-center gap-4 bg-white rounded-xl border border-purple-100 p-4 hover:border-purple-300 hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 group"
-                                >
-                                    <div className="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center shrink-0">
-                                        {org.image_display_url ? (
-                                            <img
-                                                src={org.image_display_url}
-                                                alt={org.title}
-                                                className="w-10 h-10 object-contain rounded"
-                                            />
-                                        ) : (
-                                            <Building2 className="w-6 h-6 text-purple-400" />
-                                        )}
-                                    </div>
-                                    <div className="min-w-0">
-                                        <p className="font-medium text-gray-900 group-hover:text-purple-700 transition-colors truncate">
-                                            {org.title || org.display_name}
-                                        </p>
-                                        <p className="text-xs text-gray-500">
-                                            <BarChart3 className="w-3 h-3 inline mr-1" />
-                                            {org.package_count} dataset
-                                        </p>
-                                    </div>
-                                </Link>
-                            </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-6">
+                        {links.map((link, idx) => (
+                            <a
+                                key={idx}
+                                href={link.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-aos="fade-up"
+                                data-aos-delay={idx * 50}
+                                className="flex flex-col items-center gap-4 transition-all duration-300 hover:-translate-y-0.5 group"
+                            >
+                                <div className="w-30 h-30 bg-purple-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-purple-100 transition-colors">
+                                    <img src={`/${link.logo}`} alt={`${link.label} Logo`} className="w-full h-full object-contain p-2" />
+                                </div>
+                                <p className="font-medium text-center text-sm text-gray-800 group-hover:text-purple-700 transition-colors">
+                                    {link.label}
+                                </p>
+                            </a>
                         ))}
                     </div>
                 </section>

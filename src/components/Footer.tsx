@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Database, Building2, Mail, MapPin, Home, Globe, LogIn } from "lucide-react";
 
 export function Footer() {
-  const Version = "1.1.0"; // Update this when you release a new version
+  const Version = "1.1.1"; // Update this when you release a new version
   return (
     <footer className="relative mt-auto overflow-hidden">
       {/* Wave top */}

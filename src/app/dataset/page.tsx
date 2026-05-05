@@ -162,7 +162,7 @@ async function DatasetResults({ searchParams }: { searchParams: Record<string, s
             <Link
               key={f.label}
               href={f.clearUrl}
-              className="inline-flex items-center gap-1 px-2.5 py-1 bg-purple-50 text-purple-700 text-xs rounded-full hover:bg-purple-100 transition-colors"
+              className="inline-flex items-center gap-1 px-2.5 py-1 bg-purple-600 text-purple-50 text-xs rounded-full hover:bg-purple-500 transition-colors"
             >
               {f.label}
               <X className="w-3 h-3" />
