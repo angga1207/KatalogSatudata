@@ -23,8 +23,14 @@ import {
     Globe2,
     HeartPulse,
     Home,
+    Map,
+    Newspaper,
+    Calendar,
+    Eye,
 } from "lucide-react";
 import { Dataset, Group, Organization } from "@/lib/ckan";
+import { GeoRecordWithThumbnail } from "@/lib/geospatial";
+import { BeritaItem, formatBeritaDate } from "@/lib/berita";
 
 const GROUP_ICONS: Record<string, typeof Database> = {
     "ekonomi-dan-industri": Landmark,
@@ -52,6 +58,9 @@ interface HomeContentProps {
     popularDatasets: Dataset[];
     groups: Group[];
     topOrgs: Organization[];
+    geoRecords: GeoRecordWithThumbnail[];
+    beritaList: BeritaItem[];
+    links: { href: string; label: string; logo: string }[];
 }
 
 export default function HomeContent({
@@ -60,6 +69,9 @@ export default function HomeContent({
     popularDatasets,
     groups,
     topOrgs,
+    geoRecords,
+    beritaList,
+    links,
 }: HomeContentProps) {
     const topGroups = groups.slice(0, 12);
 
@@ -226,8 +238,46 @@ export default function HomeContent({
                 </section>
             )}
 
+            {/* Links */}
+            {links.length > 0 && (
+                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                    <div data-aos="fade-up" className="text-center mb-10">
+                        <h2 className="text-2xl font-bold text-gray-900 flex items-center justify-center gap-2">
+                            <Link href="https://www.bappenas.go.id/" target="_blank" className="flex items-center gap-2 text-purple-600">
+                                <img src="/logo-bappenas.png" alt="Logo Bappenas" width={20} height={20} />
+                                Link Terkait
+                            </Link>
+                        </h2>
+                        <p className="text-sm text-gray-500 mt-1">
+                            Akses cepat ke portal dan layanan terkait Pemerintah Kabupaten Ogan Ilir
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-6">
+                        {links.map((link, idx) => (
+                            <a
+                                key={idx}
+                                href={link.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-aos="fade-up"
+                                data-aos-delay={idx * 50}
+                                className="flex flex-col items-center gap-4 transition-all duration-300 hover:-translate-y-0.5 group"
+                            >
+                                <div className="w-30 h-30 bg-purple-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-purple-100 transition-colors">
+                                    <img src={`/${link.logo}`} alt={`${link.label} Logo`} className="w-full h-full object-contain p-2" />
+                                </div>
+                                <p className="font-medium text-center text-sm text-gray-800 group-hover:text-purple-700 transition-colors">
+                                    {link.label}
+                                </p>
+                            </a>
+                        ))}
+                    </div>
+                </section>
+            )}
+
             {/* Dataset Populer & Terbaru */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 <div data-aos="fade-up" className="text-center mb-10">
                     <h2 className="text-2xl font-bold text-gray-900 flex items-center justify-center gap-2">
                         <BookOpen className="w-6 h-6 text-purple-600" />
@@ -323,6 +373,156 @@ export default function HomeContent({
                     </div>
                 </div>
             </section>
+
+            {/* Data Geospasial */}
+            {geoRecords.length > 0 && (
+                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                    <div data-aos="fade-up" className="text-center mb-10">
+                        <h2 className="text-2xl font-bold text-gray-900 flex items-center justify-center gap-2">
+                            <Map className="w-6 h-6 text-emerald-600" />
+                            Data <span className="text-emerald-600">Geospasial</span>
+                        </h2>
+                        <p className="text-sm text-gray-500 mt-1">
+                            Peta dan layer geospasial Kabupaten Ogan Ilir dari Geoportal
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {geoRecords.map((record, idx) => (
+                            <div
+                                key={record.identifier}
+                                data-aos="fade-up"
+                                data-aos-delay={idx * 50}
+                                className="bg-white rounded-xl border border-emerald-100 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 group"
+                            >
+                                {/* Thumbnail WMS */}
+                                <div className="relative w-full bg-emerald-50 overflow-hidden" style={{ height: 180 }}>
+                                    {record.thumbnailUrl ? (
+                                        <img
+                                            src={record.thumbnailUrl}
+                                            alt={`Peta ${record.title}`}
+                                            width={240}
+                                            height={180}
+                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center">
+                                            <Map className="w-12 h-12 text-emerald-300" />
+                                        </div>
+                                    )}
+                                    <div className="absolute top-2 right-2">
+                                        <span className="bg-emerald-600 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">
+                                            WMS
+                                        </span>
+                                    </div>
+                                </div>
+
+                                {/* Info */}
+                                <div className="p-4">
+                                    <p className="font-semibold text-sm text-gray-900 group-hover:text-emerald-700 transition-colors line-clamp-2 mb-1">
+                                        {record.title}
+                                    </p>
+                                    {record.abstract && (
+                                        <p className="text-xs text-gray-500 line-clamp-2 mb-2">
+                                            {record.abstract}
+                                        </p>
+                                    )}
+                                    {record.organization && (
+                                        <p className="text-xs text-gray-400 flex items-center gap-1 mb-2">
+                                            <Building2 className="w-3 h-3 shrink-0" />
+                                            <span className="truncate">{record.organization.split(";")[0]}</span>
+                                        </p>
+                                    )}
+                                    {record.layerName && (
+                                        <span className="inline-block bg-emerald-50 text-emerald-700 text-[10px] font-mono px-2 py-0.5 rounded border border-emerald-200 truncate max-w-full">
+                                            {record.layerName}
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div data-aos="fade-up" className="mt-6 text-center">
+                        <a
+                            href="https://geoportal.oganilirkab.go.id"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-sm font-medium text-emerald-600 hover:text-emerald-700 border border-emerald-200 hover:border-emerald-400 rounded-lg px-4 py-2 transition-colors"
+                        >
+                            Kunjungi Geoportal Ogan Ilir <ArrowRight className="w-4 h-4" />
+                        </a>
+                    </div>
+                </section>
+            )}
+
+            {/* Berita */}
+            {beritaList.length > 0 && (
+                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                    <div data-aos="fade-up" className="text-center mb-10">
+                        <h2 className="text-2xl font-bold text-gray-900 flex items-center justify-center gap-2">
+                            <Newspaper className="w-6 h-6 text-blue-600" />
+                            Berita <span className="text-blue-600">Terbaru</span>
+                        </h2>
+                        <p className="text-sm text-gray-500 mt-1">
+                            Informasi terbaru dari Pemerintah Kabupaten Ogan Ilir
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {beritaList.map((berita, idx) => (
+                            <div
+                                key={berita.id}
+                                data-aos="fade-up"
+                                data-aos-delay={idx * 50}
+                            >
+                                <Link
+                                    href={`/berita/${berita.slug}`}
+                                    className="group bg-white rounded-xl border border-blue-100 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 flex flex-col h-full"
+                                >
+                                    <div className="relative overflow-hidden bg-blue-50" style={{ height: 180 }}>
+                                        {berita.thumbnail ? (
+                                            <img
+                                                src={berita.thumbnail}
+                                                alt={berita.title}
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center">
+                                                <Newspaper className="w-10 h-10 text-blue-200" />
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="p-4 flex flex-col flex-1">
+                                        <p className="font-semibold text-sm text-gray-900 group-hover:text-blue-700 transition-colors line-clamp-3 mb-3 flex-1">
+                                            {berita.title}
+                                        </p>
+                                        <div className="flex items-center justify-between text-xs text-gray-400 pt-3 border-t border-gray-50">
+                                            <span className="flex items-center gap-1">
+                                                <Calendar className="w-3 h-3" />
+                                                {formatBeritaDate(berita.published_at)}
+                                            </span>
+                                            <span className="flex items-center gap-1">
+                                                <Eye className="w-3 h-3" />
+                                                {berita.views}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div data-aos="fade-up" className="mt-6 text-center">
+                        <Link
+                            href="/berita"
+                            className="inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-700 border border-blue-200 hover:border-blue-400 rounded-lg px-4 py-2 transition-colors"
+                        >
+                            Lihat Semua Berita <ArrowRight className="w-4 h-4" />
+                        </Link>
+                    </div>
+                </section>
+            )}
 
             {/* Organizations */}
             {topOrgs.length > 0 && (

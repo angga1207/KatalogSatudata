@@ -206,8 +206,8 @@ async function DatasetResults({ searchParams }: { searchParams: Record<string, s
                       key={s.value}
                       href={buildFilterUrl({ q, org, groups, sort: s.value, format, tag })}
                       className={`flex items-center gap-2 text-sm px-3 py-2 rounded-lg transition-colors ${isActive
-                          ? "bg-purple-50 text-purple-700 font-medium"
-                          : "text-gray-600 hover:bg-purple-50/50"
+                        ? "bg-purple-50 text-purple-700 font-medium"
+                        : "text-gray-600 hover:bg-purple-50/50"
                         }`}
                       title={s.description}
                     >
@@ -229,11 +229,10 @@ async function DatasetResults({ searchParams }: { searchParams: Record<string, s
                 <div className="flex flex-col gap-0.5 max-h-48 overflow-y-auto">
                   <Link
                     href={buildFilterUrl({ q, org, sort, format, tag })}
-                    className={`text-sm px-3 py-1.5 rounded-lg transition-colors ${
-                      !groups
-                        ? "bg-purple-50 text-purple-700 font-medium"
-                        : "text-gray-600 hover:bg-purple-50/50"
-                    }`}
+                    className={`text-sm px-3 py-1.5 rounded-lg transition-colors ${!groups
+                      ? "bg-purple-50 text-purple-700 font-medium"
+                      : "text-gray-600 hover:bg-purple-50/50"
+                      }`}
                   >
                     Semua topik
                   </Link>
@@ -241,11 +240,10 @@ async function DatasetResults({ searchParams }: { searchParams: Record<string, s
                     <Link
                       key={g.id}
                       href={buildFilterUrl({ q, org, groups: groups === g.name ? "" : g.name, sort, format, tag })}
-                      className={`text-sm px-3 py-1.5 rounded-lg transition-colors flex items-center justify-between ${
-                        groups === g.name
-                          ? "bg-purple-50 text-purple-700 font-medium"
-                          : "text-gray-600 hover:bg-purple-50/50"
-                      }`}
+                      className={`text-sm px-3 py-1.5 rounded-lg transition-colors flex items-center justify-between ${groups === g.name
+                        ? "bg-purple-50 text-purple-700 font-medium"
+                        : "text-gray-600 hover:bg-purple-50/50"
+                        }`}
                     >
                       <span className="truncate">{g.title || g.display_name}</span>
                       <span className="text-xs text-gray-400 shrink-0 ml-1">
@@ -266,8 +264,8 @@ async function DatasetResults({ searchParams }: { searchParams: Record<string, s
                 <Link
                   href={buildFilterUrl({ q, groups, sort, format, tag })}
                   className={`text-sm px-3 py-1.5 rounded-lg transition-colors ${!org
-                      ? "bg-purple-50 text-purple-700 font-medium"
-                      : "text-gray-600 hover:bg-purple-50/50"
+                    ? "bg-purple-50 text-purple-700 font-medium"
+                    : "text-gray-600 hover:bg-purple-50/50"
                     }`}
                 >
                   Semua instansi
@@ -277,8 +275,8 @@ async function DatasetResults({ searchParams }: { searchParams: Record<string, s
                     key={o.id}
                     href={buildFilterUrl({ q, org: o.name, groups, sort, format, tag })}
                     className={`text-sm px-3 py-1.5 rounded-lg transition-colors flex items-center justify-between ${org === o.name
-                        ? "bg-purple-50 text-purple-700 font-medium"
-                        : "text-gray-600 hover:bg-purple-50/50"
+                      ? "bg-purple-50 text-purple-700 font-medium"
+                      : "text-gray-600 hover:bg-purple-50/50"
                       }`}
                   >
                     <span className="truncate">
@@ -311,8 +309,8 @@ async function DatasetResults({ searchParams }: { searchParams: Record<string, s
                         tag,
                       })}
                       className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${format === f.name
-                          ? "bg-purple-600 text-white"
-                          : "bg-gray-100 text-gray-600 hover:bg-purple-50 hover:text-purple-700"
+                        ? "bg-purple-600 text-white"
+                        : "bg-gray-100 text-gray-600 hover:bg-purple-50 hover:text-purple-700"
                         }`}
                     >
                       {f.name.toUpperCase()}
@@ -343,8 +341,8 @@ async function DatasetResults({ searchParams }: { searchParams: Record<string, s
                         tag: tag === t.name ? "" : t.name,
                       })}
                       className={`text-sm px-3 py-1.5 rounded-lg transition-colors flex items-center justify-between ${tag === t.name
-                          ? "bg-purple-50 text-purple-700 font-medium"
-                          : "text-gray-600 hover:bg-purple-50/50"
+                        ? "bg-purple-50 text-purple-700 font-medium"
+                        : "text-gray-600 hover:bg-purple-50/50"
                         }`}
                     >
                       <span className="truncate">{t.name}</span>

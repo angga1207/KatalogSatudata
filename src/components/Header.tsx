@@ -9,6 +9,7 @@ import { useState } from "react";
 const NAV_ITEMS = [
   { href: "/", label: "Beranda" },
   { href: "/dataset", label: "Dataset" },
+  { href: "/berita", label: "Berita" },
   { href: "https://geoportal.oganilirkab.go.id/main/", label: "Geoportal", target: "_blank" },
   { href: "/organisasi", label: "Instansi" },
   { href: "https://satudata-dev.oganilirkab.go.id/", label: "Login", target: "_blank", icon: LogIn },
