@@ -28,6 +28,8 @@ export default async function HomePage() {
     { href: "https://www.lapor.go.id/", label: "Lapor.go.id", logo: 'logo-sp4n.png' },
     { href: "https://www.instagram.com/oganilir.siaga112_/", label: "Siaga 112 Ogan Ilir", logo: 'logo-112.png' },
     { href: "https://sipd.go.id/ewalidata/4ebb8bf3fbe99f6751cf41a5313b18526b1fd001/", label: "Ewalidata", logo: 'logo-ewalidata.png' },
+    { href: "https://oganilirkab.go.id/home", label: "Website Ogan Ilir", logo: 'logo-oi.webp' },
+    { href: "https://diskominfo.oganilirkab.go.id/", label: "Diskominfo Ogan Ilir", logo: 'logo-kominfo.webp' },
   ]
 
   return (

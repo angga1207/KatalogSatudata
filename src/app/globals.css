@@ -44,6 +44,19 @@ body {
   background: #8b5cf6;
 }
 
+/* Smooth infinite marquee */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+  will-change: transform;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
 /* Prose styles for dataset descriptions */
 .prose a {
   color: #7c3aed;

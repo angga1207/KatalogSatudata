@@ -553,38 +553,45 @@ export default function HomeContent({
 
             {/* Links */}
             {links.length > 0 && (
-                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                    <div data-aos="fade-up" className="text-center mb-10">
+                <section className="py-12 pb-16">
+                    <div data-aos="fade-up" className="text-center mb-8">
                         <h2 className="text-2xl font-bold text-gray-900 flex items-center justify-center gap-2">
-                            <Link href="https://www.bappenas.go.id/" target="_blank" className="flex items-center gap-2 text-purple-600">
-                                <img src="/logo-bappenas.png" alt="Logo Bappenas" width={20} height={20} />
-                                Link Terkait
-                            </Link>
+                            <span className="text-purple-600">Link Terkait</span>
                         </h2>
                         <p className="text-sm text-gray-500 mt-1">
                             Akses cepat ke portal dan layanan terkait Pemerintah Kabupaten Ogan Ilir
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-6">
-                        {links.map((link, idx) => (
-                            <a
-                                key={idx}
-                                href={link.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                data-aos="fade-up"
-                                data-aos-delay={idx * 50}
-                                className="flex flex-col items-center gap-4 transition-all duration-300 hover:-translate-y-0.5 group"
-                            >
-                                <div className="w-30 h-30 bg-purple-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-purple-100 transition-colors">
-                                    <img src={`/${link.logo}`} alt={`${link.label} Logo`} className="w-full h-full object-contain p-2" />
-                                </div>
-                                <p className="font-medium text-center text-sm text-gray-800 group-hover:text-purple-700 transition-colors">
-                                    {link.label}
-                                </p>
-                            </a>
-                        ))}
+                    {/* Marquee wrapper */}
+                    <div className="relative overflow-hidden pt-2">
+                        {/* Fade edges */}
+                        <div className="pointer-events-none absolute inset-y-0 left-0 w-24 z-10 bg-linear-to-r from-background to-transparent" />
+                        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 z-10 bg-linear-to-l from-background to-transparent" />
+
+                        {/* Scrolling track — items duplicated for seamless loop */}
+                        <div className="flex animate-marquee" style={{ width: 'max-content' }}>
+                            {[...links, ...links].map((link, idx) => (
+                                <a
+                                    key={idx}
+                                    href={link.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex flex-col items-center gap-3 mx-8 transition-all duration-300 hover:-translate-y-1 group shrink-0"
+                                >
+                                    <div className="w-50 h-30 flex items-center justify-center transition-all duration-300">
+                                        <img
+                                            src={`/${link.logo}`}
+                                            alt={`${link.label} Logo`}
+                                            className="w-full h-full p-2 object-contain"
+                                        />
+                                    </div>
+                                    <p className="font-medium text-center text-xs text-gray-600 group-hover:text-purple-700 transition-colors w-50">
+                                        {link.label}
+                                    </p>
+                                </a>
+                            ))}
+                        </div>
                     </div>
                 </section>
             )}
